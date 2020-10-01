@@ -1,6 +1,6 @@
 # **Delegation-Tokenization-Module**
 
-Delegation tokenization module, a native Cosmos-SDK module which allows delegations to be tokenized to fungible and NFT tokens
+Delegation tokenization module, a native Cosmos-SDK module which allows delegations to be tokenized to fungible tokens
 </br></br>
 ## 1. Problem
 
