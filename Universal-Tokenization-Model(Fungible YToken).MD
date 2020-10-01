@@ -1,16 +1,16 @@
 # **Delegation-Tokenization-Module**
 
 Delegation tokenization module, a native Cosmos-SDK module which allows delegations to be tokenized to fungible and NFT tokens
-
-## **1. Problem**
+</br></br>
+## 1. Problem
 
 - Each delegation has different
     - Validator to stake on
     - Accumulated rewards
     - Risk of double signing
 - How we can standardize staked atom into universal one token?
-
-## **2. Solution**
+</br></br>
+## 2. Solution
 
 ### Utility
 
@@ -29,8 +29,8 @@ Delegation tokenization module, a native Cosmos-SDK module which allows delegati
     - `YToken` holders will
         - redeem delegation with `NToken` and `YToken` submitted to the module before maturity
         - or get auctioned by `NToken` holders after maturity
-
-## 3**. Parameters, States and Messages**
+</br></br>
+## 3. Parameters, States and Messages
 
 ### Parameters
 
@@ -104,8 +104,8 @@ Delegation tokenization module, a native Cosmos-SDK module which allows delegati
         - the tokens are escrowed in the module until
             - higher bid is coming in
             - or auction is finalized
-
-## 4**. Process**
+</br></br>
+## 4. Process
 
 ### **Delegation Tokenization**
 
@@ -159,7 +159,7 @@ Delegation tokenization module, a native Cosmos-SDK module which allows delegati
     - If auction has no winner after auction period?
         - `SuddenDeath` auction triggered
             - Anyone paying zero or more `NToken` will immediately win the auction
-
+</br></br>
 ## 5. Advantages and Disadvantages
 
 ### Advantages
@@ -196,8 +196,8 @@ Delegation tokenization module, a native Cosmos-SDK module which allows delegati
         - To roll-over the tokenization for `YToken` holders with appropriate fee
         - And send back new `YToken` with extended maturity to original `YToken` holder
         - These multiple messages can be atomically transacted in one transaction in a decentralized fashion
-
-## 6**. Discussions**
+</br></br>
+## 6. Discussions
 
 ### **Governance Voting Rights**
 
