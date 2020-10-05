@@ -14,7 +14,7 @@
 
 ### Concept
 
-`DelegationToken`
+`**DelegationToken**`
 
 - Every delegation share becomes transferable fungible token called `DelegationToken`
     - Fungibility is over same validator
@@ -26,18 +26,20 @@
     - This is a governance parameter representing the frequency of `DelegationTokenizationBlock`
     - The default value can be 100,000 blocks(about a week)
 
-**List of acitivities handled at `DelegationTokenizationBlock`**
+**List of acitivities handled on `DelegationTokenizationBlock`**
 
 - Delegation : `DelegationToken` minting
     - Delegation can happen anytime
     - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
         - No rewards are accumulated until next `DelegationTokenizationBlock`
-        - It is optimal to delegate right before `DelegationTokenizationBlock`
+        - It is optimal to delegate at or right before `DelegationTokenizationBlock`
+        - `MsgDelegationQue` : execute delegation at next `DelegationTokenizationBlock`
 - Undelegation : `DelegationToken` burning
     - Undelegation can happen anytime
     - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
         - No rewards can be redeemed after last `DelegationTokenizationBlock`
-        - It is optimal to undelgate right after `DelegationTokenizationBlock`
+        - It is optimal to undelgate at or right after `DelegationTokenizationBlock`
+        - `MsgUnDelegationQue` : execute undelegation at next `DelegationTokenizationBlock`
 - Redelegation : `DelegationToken` burning and minting
     - Redelegation can happen anytime
     - Redelegation : burning the holding `DelegationToken`, and minting the new `DelegationToken`
@@ -46,6 +48,7 @@
             - No rewards are accumulated until next `DelegationTokenizationBlock`
         - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
             - No rewards can be redeemed after last `DelegationTokenizationBlock`
+        - `MsgRedelegationQue` : execute redelegation at next `DelegationTokenizationBlock`
 
 **Reward Pool Management**
 
