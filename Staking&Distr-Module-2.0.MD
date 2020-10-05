@@ -26,7 +26,7 @@
     - This is a governance parameter representing the frequency of `DelegationTokenizationBlock`
     - The default value can be 100,000 blocks(about a week)
 
-**List of acitivities handled on `DelegationTokenizationBlock`**
+**List of acitivities handled at `DelegationTokenizationBlock`**
 
 - Delegation : `DelegationToken` minting
     - Delegation can happen anytime
