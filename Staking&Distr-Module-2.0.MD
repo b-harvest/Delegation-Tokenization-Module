@@ -14,7 +14,7 @@
 
 ### Concept
 
-`**DelegationToken**`
+**`DelegationToken`**
 
 - Every delegation share becomes transferable fungible token called `DelegationToken`
     - Fungibility is over same validator
