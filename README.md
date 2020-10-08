@@ -113,56 +113,60 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 </br></br>
 
-## 4. Suggested Model : Delegation Share Tokenization
+## **4. Suggested Model : Delegation Tokenization Module**
 
-### **`DelegationToken`**
+### `DelegationToken`
 
-- Every delegation share becomes transferable fungible token called `DelegationToken`
+- Every delegation share becomes transferable fungible token called `DelegationToken`
     - Fungibility is over same validator
 
 </br>
 
 ### **Periodic Tokenization**
 
-- All activities around `DelegationToken` are only happening at `DelegationTokenizationBlock`
+- `TokenizedDelegation` and `RedeemDelegation` are only happening at `DelegationTokenizationBlock`
 - `TokenizationPeriod`
-    - This is a governance parameter representing the frequency of `DelegationTokenizationBlock`
+    - This is a governance parameter representing the frequency of `DelegationTokenizationBlock`
     - The default value can be 100,000 blocks(about a week)
 
-</br>
+</br></br>
 
-### **List of acitivities handled at `DelegationTokenizationBlock`**
+### **Tokenization and Redemption of Delegations**
 
-- Delegation : `DelegationToken` minting
-    - Delegation can happen anytime
-    - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
-        - No rewards are accumulated until next `DelegationTokenizationBlock`
-        - It is optimal to delegate at or right before `DelegationTokenizationBlock`
-        - `MsgDelegationQue` : execute delegation at next `DelegationTokenizationBlock`
-- Undelegation : `DelegationToken` burning
-    - Undelegation can happen anytime
-    - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
-        - No rewards can be redeemed after last `DelegationTokenizationBlock`
-        - It is optimal to undelgate at or right after `DelegationTokenizationBlock`
-        - `MsgUnDelegationQue` : execute undelegation at next `DelegationTokenizationBlock`
-- Redelegation : `DelegationToken` burning and minting
-    - Redelegation can happen anytime
-    - Redelegation : burning the holding `DelegationToken`, and minting the new `DelegationToken`
-    - Burning and Minting
-        - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
-            - No rewards are accumulated until next `DelegationTokenizationBlock`
-        - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
-            - No rewards can be redeemed after last `DelegationTokenizationBlock`
-        - `MsgRedelegationQue` : execute redelegation at next `DelegationTokenizationBlock`
+- `TokenizeDelegation` : `DelegationToken` minting
+    - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
+    - `MsgDelegationQue` : queue tokenization at next `DelegationTokenizationBlock`
+- `RedeemDelegation` : `DelegationToken` burning
+    - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
+    - `MsgUnDelegationQue` : queue redemption at next `DelegationTokenizationBlock`
 
 </br>
 
 ### **Reward Pool Management**
 
 - Bonding-token rewards management
-    - Periodically auto-rebonded at `DelegationTokenizationBlock`
+    - Periodically auto-rebonded at `DelegationTokenizationBlock`
 - Non-bonding-token rewards management
-    - The rights to pull periodically accumulated non-bonding-token rewards are minted as `RewardPoolToken` and sent to `DelegationToken` owner
-    - `RewardPoolToken` is fungible over same validator and same period
-- Withdraw non-bonding-token rewards from `RewardPoolToken`
-    - `RewardPoolToken` holders can request immediate withdraw of non-bonding-token rewards
+    - The rights to pull periodically accumulated non-bonding-token rewards are minted as `RewardPoolToken` and sent to `DelegationToken` owner
+    - `RewardPoolToken` is fungible over same validator and same period
+- Withdraw non-bonding-token rewards from `RewardPoolToken`
+    - `RewardPoolToken` holders can request immediate withdraw of non-bonding-token rewards
+
+</br>
+
+### Maximum Delegation Tokenization Ratio
+
+- `MaxDelegationTokenizationRatio`
+    - `DelegationTokenizationRatio` = total tokenized delegation amount / total delegation amount
+    - If `DelegationTokenizationRatio` ≥ `MaxDelegationTokenizationRatio`
+        - Any `TokenizeDelegation` is failed
+
+</br></br>
+
+## 5. Changes in Existing Modules
+
+### Staking Module
+
+- New function needed : `ChangeDelegatorAddr()`
+    - Upon tokenization and redemption, the ownership of delegation is transferred between users and module account
+    - So, there should exist such function so that the new module can handle the ownership of delegation
