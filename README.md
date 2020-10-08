@@ -7,6 +7,8 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 ## 1. Context
 
+</br>
+
 ### Delegated Proof of Stake : the Standard Concensus Mechanism for Next Generation Blockchains
 
 - Most newly born public blockchains adopt proof of stake, especially delegated proof of stake
@@ -54,6 +56,8 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 ## 2. General Philosophy
 
+</br>
+
 ### Providing Minimal Building Block from Cosmos-SDK Modules for Staking Derivatives
 
 - Simplest design possible
@@ -82,6 +86,8 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 </br></br>
 
 ## 3. Possible Risk Vectors
+
+</br>
 
 ### Functional Errors on Base Layer
 
@@ -113,7 +119,9 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 </br></br>
 
-## **4. Suggested Model : Delegation Tokenization Module**
+## 4. Suggested Model : Delegation Tokenization Module
+
+</br>
 
 ### `DelegationToken`
 
@@ -122,7 +130,7 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 </br>
 
-### **Periodic Tokenization**
+### Periodic Tokenization
 
 - `TokenizedDelegation` and `RedeemDelegation` are only happening at `DelegationTokenizationBlock`
 - `TokenizationPeriod`
@@ -131,7 +139,7 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 </br></br>
 
-### **Tokenization and Redemption of Delegations**
+### Tokenization and Redemption of Delegations
 
 - `TokenizeDelegation` : `DelegationToken` minting
     - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
@@ -142,7 +150,7 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 </br>
 
-### **Reward Pool Management**
+### Reward Pool Management
 
 - Bonding-token rewards management
     - Periodically auto-rebonded at `DelegationTokenizationBlock`
@@ -164,6 +172,8 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 </br></br>
 
 ## 5. Changes in Existing Modules
+
+</br>
 
 ### Staking Module
 
