@@ -193,3 +193,12 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 - New function needed : `ChangeDelegatorAddr()`
     - Upon tokenization and redemption, the ownership of delegation is transferred between users and module account
     - So, there should exist such function so that the new module can handle the ownership of delegation
+    - This function also should handle necessary delegation merge process if the changed owner already has delegation from same validator
+        - withdraw all rewards
+        - merge delegation to one object
+
+</br>
+
+- New function needed : `SplitDelegation()`
+    - When remeption is requested from `DelegationToken` owner, a proportion of total delegation in the module account should be transferred to the redemption requestor
+    - In this process, the delegation in the module account should be splitted so that only the proportion of delegation ownership can be transferred
