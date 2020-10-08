@@ -197,8 +197,6 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
         - withdraw all rewards
         - merge delegation to one object
 
-</br>
-
 - New function needed : `SplitDelegation()`
     - When remeption is requested from `DelegationToken` owner, a proportion of total delegation in the module account should be transferred to the redemption requestor
     - In this process, the delegation in the module account should be splitted so that only the proportion of delegation ownership can be transferred
