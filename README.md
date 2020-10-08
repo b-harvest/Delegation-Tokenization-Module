@@ -119,46 +119,59 @@ The contents are composed of 1) Context, 2) General Effects and Risks, 3) Possib
 
 </br></br>
 
-## 4. Suggested Model : Delegation Tokenization Module
+## **4. Suggested Model : Delegation Tokenization Module**
 
 </br>
 
-### `DelegationToken`
+### DelegationToken
 
 - Every delegation share becomes transferable fungible token called `DelegationToken`
     - Fungibility is over same validator
 
 </br>
 
-### Periodic Tokenization
+### **Periodic Tokenization/Redemption**
 
 - `TokenizedDelegation` and `RedeemDelegation` are only happening at `DelegationTokenizationBlock`
 - `TokenizationPeriod`
     - This is a governance parameter representing the frequency of `DelegationTokenizationBlock`
-    - The default value can be 100,000 blocks(about a week)
-
-</br></br>
-
-### Tokenization and Redemption of Delegations
-
-- `TokenizeDelegation` : `DelegationToken` minting
-    - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
-    - `MsgDelegationQue` : queue tokenization at next `DelegationTokenizationBlock`
-- `RedeemDelegation` : `DelegationToken` burning
-    - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
-    - `MsgUnDelegationQue` : queue redemption at next `DelegationTokenizationBlock`
+    - The default value can be 400,000 blocks(about a month)
 
 </br>
 
-### Reward Pool Management
+### **Tokenization and Redemption of Delegations**
 
+- `TokenizeDelegation` : `DelegationToken` minting
+    - `DelegationToken` minting happens at next `DelegationTokenizationBlock`
+    - `MsgDelegationQueue` : queue tokenization at next `DelegationTokenizationBlock`
+- `RedeemDelegation` : `DelegationToken` burning
+    - Redemption of delegation is calculated from the proportion at last `DelegationTokenizationBlock`
+    - `MsgUnDelegationQueue` : queue redemption at next `DelegationTokenizationBlock`
+
+</br>
+
+### Periodic Rewards Pool
+
+- Periodic rewards withdrawal from module account
+    - At every `DelegationTokenizationBlock` the module withdraw all accumulated rewards in every `TokenizedDelegation`
 - Bonding-token rewards management
     - Periodically auto-rebonded at `DelegationTokenizationBlock`
 - Non-bonding-token rewards management
-    - The rights to pull periodically accumulated non-bonding-token rewards are minted as `RewardPoolToken` and sent to `DelegationToken` owner
-    - `RewardPoolToken` is fungible over same validator and same period
-- Withdraw non-bonding-token rewards from `RewardPoolToken`
-    - `RewardPoolToken` holders can request immediate withdraw of non-bonding-token rewards
+    - `PeriodicRewardsPool` : The module stores the withdrawn non-bonding-token rewards to each `PeriodicRewardsPool`
+        - `PeriodicRewardsPool` exists for each validator and each `TokenizationPeriod`
+    - `RewardCoupon`  : The rights to pull periodically accumulated non-bonding-token rewards
+        - `RewardCoupon` is fungible over same validator and same period
+        - The `RewardCoupon` for this `PeriodicRewardsPool` is minted and sent to DelegationToken owners
+- Reward withdraw request from `RewardCoupon` holders
+    - `RewardCoupon` holders can request immediate withdrawal of rewards stored in `PeriodicRewardsPool`
+    - Used `RewardCoupon` is burnt
+
+</br>
+
+### Validator Addresses Cannot Tokenize Delegation
+
+- Validator addresses have additional reward factor : commission rewards
+- Therefore, it is not fungible with other delegations → Prohibit delegation tokenization by validator addresses
 
 </br>
 
