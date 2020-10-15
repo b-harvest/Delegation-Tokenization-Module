@@ -1,16 +1,21 @@
-## **1. Context**
+## 1. Context
+</br>
 
-### **Delegated Proof of Stake : the Standard Concensus Mechanism for Next Generation Blockchains**
+### Delegated Proof of Stake : the Standard Concensus Mechanism for Next Generation Blockchains
 
 - Most newly born public blockchains adopt proof of stake, especially delegated proof of stake
 - dPoS has demonstrated the most stable and secure concensus mechanism for past several years
 
-### **Liquid Staking : Unlock the Staked Assets for Great Potential Economic Value**
+</br>
+
+### Liquid Staking : Unlock the Staked Assets for Great Potential Economic Value
 
 - Most staked assets in dPoS blockchains are locked in the blockchain protocols
 - Unlocking the staked assets have great economic potential to thrive growth of investment and use-cases in dPoS networks
 
-### **Delegation Tokenization : Protocol Level Base Layer Support for Liquid Staking**
+</br>
+
+### Delegation Tokenization : Protocol Level Base Layer Support for Liquid Staking
 
 - There should exist very secure support from the core blockchain modules for liquid staking
 - Simple delegation tokenization feature on dPoS is necessary to
@@ -18,7 +23,11 @@
     - with securely built base layer protocol as a building block
 - The base layer delegation tokenization should have simple and general design
 
+</br></br>
+
 ## 2. Important Properties
+
+</br>
 
 ### Fungibility
 
@@ -26,17 +35,23 @@
 - Fungible over staking time period?
 - Can we expand fungibility further with other mechanism upon this model?
 
+</br>
+
 ### Simplicity
 
 - Does this model require new functionalities to be adopted?
 - Is the process of the model easy to understand?
 - Is there many complex steps which might occur bugs?
 
+</br>
+
 ### Reward Distribution
 
 - Does delegation token holders need to deal with actual rewards?
 - Can users trade accrued rewards without rewards withdrawal?
 - Is the reward distribution mechanism creates complexity over handling delegation tokens in contracts?
+
+</br>
 
 ### Slashing Risk Responsibility Alignment
 
@@ -45,16 +60,22 @@
     - Right person is responsible for slashing event? Good alignment of incentives and responsibility?
     - Do we have mechanism to prevent it?
 
+</br>
+
 ### Independency
 
 - Is the model requiring other modules or functionalities as dependency?
 - Does the model break down during the dependent functionality failures?
 - Does the model require significant logic changes on existing modules such as staking or distribution?
 
+</br>
+
 ### Generality
 
 - Is the model adoptable for most Cosmos-SDK based networks?
 - Is the model demanding strong assumption on staking environment?
+
+</br>
 
 ### IBC/Contract Compatibility
 
@@ -63,31 +84,47 @@
 - Lots of delegation token will be held by contracts or modules, inside or outside the origin chain
     - Is there no significant complexity around handling delegation tokens by contracts or modules?
 
+</br></br>
+
 ## 3. Delegation Decomposition Dimensions
+
+</br>
 
 ### Delegation Decomposition by Validators : Vertical
 
 ![delegation_decomposition_1](delegation_decomposition_1.png)
 
+</br>
+
 ### Delegation Decomposition by Fungibility : Horizontal
 
 ![delegation_decomposition_2](delegation_decomposition_2.png)
+
+</br></br>
 
 ## 4. Design Options
 
 ![design_option](design_option.png)
 
+</br>
+
 ### Validator Tokens with Manual Delegation Owner Update
+
+</br>
 
 **Concept**
 
 - A delegation is tokenized to a validator token, redeemed from a validator token
 - The validator token owner can manually update the owner of the delegation share
 
+</br>
+
 **Advantages**
 
 - A technically natural approach to tokenize the delegation share
 - Simple adjustment on existing module without additional functionality
+
+</br>
 
 **Limitation**
 
@@ -96,7 +133,11 @@
     - Therefore, the validator token should be located in the origin chain for this transaction
 - Complexity arises on ownership update actions for modules & contracts on different chains
 
+</br></br>
+
 ### Validator Tokens with Periodic Reward Auction
+
+</br>
 
 **Concept**
 
@@ -104,6 +145,8 @@
 - At every periodic block height, accumulated rewards are withdrawn to the reward auction fund
 - Tokens in the reward auction fund are sold for bonding token, via periodic auction
 - Incoming bonding tokens from the auction are auto rebonded
+
+</br>
 
 **Advantages**
 
@@ -113,12 +156,18 @@
 - Auto rebond
     - Accumulated rewards are periodically auto rebonded
 
+</br>
+
 **Limitation**
 
 - Tokenization/Redemption is allowed only at periodic block height : Que should be introduced
 - Auction functionality should be introduced : Multiunit auction
 
+</br></br>
+
 ### Fungible(F-Token) + NFT(Y-Token) with Delegation Auction
+
+</br>
 
 **Concept**
 
@@ -129,12 +178,16 @@
     - Auction winner receives the ownership of the delegation
     - Y-Token holder gets partial amount of F-Token at maturity
 
+</br>
+
 **Advantages**
 
 - Completely fungible F-Token creation without any necessity of on-chain action
 - Decomposition of delegation into two financially distict types of tokens
     - More precise investment & trading options for users
     - Providing better DeFi building-block for further creative staking derivative products
+
+</br>
 
 **Limitation**
 
